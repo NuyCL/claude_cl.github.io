@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Director | Full-Stack &amp; Cloud Architecture</title>
+<meta name="description" content="Developer Director focused on full-stack engineering, AI, design patterns, and cloud architecture.">
+<style>
+  :root {
+    --bg: #0b0f14;
+    --bg-elevated: #121822;
+    --border: #223041;
+    --text: #e8edf3;
+    --text-muted: #93a4b8;
+    --accent: #5eead4;
+    --accent-2: #7c9cff;
+    --radius: 14px;
+    --max-width: 1080px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f6f8fb;
+      --bg-elevated: #ffffff;
+      --border: #dde4ec;
+      --text: #101722;
+      --text-muted: #56657a;
+      --accent: #0f9d8f;
+      --accent-2: #3355d1;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f8fb;
+    --bg-elevated: #ffffff;
+    --border: #dde4ec;
+    --text: #101722;
+    --text-muted: #56657a;
+    --accent: #0f9d8f;
+    --accent-2: #3355d1;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent-2); }
+
+  .wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  header.hero {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: clamp(16px, 2.4vw, 19px);
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 0 0 28px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #05221d;
+    border-color: transparent;
+  }
+
+  .btn-ghost {
+    color: var(--text);
+    background: transparent;
+  }
+
+  section {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0 0 24px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+
+  .card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+  }
+
+  .roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .roles .card {
+    text-align: center;
+  }
+
+  footer {
+    padding: 32px 0 60px;
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 999px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .cta-row { flex-direction: column; align-items: stretch; }
+    .theme-toggle { top: 12px; right: 12px; }
+  }
+</style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">🌓</button>
+
+  <div class="wrap">
+    <header class="hero">
+      <span class="eyebrow">Developer Director</span>
+      <h1>Full-stack engineering, AI-first thinking, cloud-native architecture.</h1>
+      <p class="subtitle">
+        I lead end-to-end delivery across engineering, systems analysis, and QA — pairing hands-on
+        full-stack work with a director's view of architecture, scalability, and team output.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#stack">View tech stack</a>
+        <a class="btn btn-ghost" href="#interests">Focus areas</a>
+      </div>
+    </header>
+
+    <section id="stack">
+      <h2>Primary Tech Stack</h2>
+      <div class="tag-list">
+        <span class="tag">Java</span>
+        <span class="tag">React.js</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Go</span>
+        <span class="tag">Python</span>
+      </div>
+    </section>
+
+    <section id="interests">
+      <h2>Focus Areas</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>AI Engineering</h3>
+          <p>Applying LLMs and agentic systems to real product and platform workflows.</p>
+        </div>
+        <div class="card">
+          <h3>Design Patterns</h3>
+          <p>Pragmatic application of proven patterns for maintainable, scalable systems.</p>
+        </div>
+        <div class="card">
+          <h3>Cloud Solutions</h3>
+          <p>Designing for resilience, cost-efficiency, and scale across cloud platforms.</p>
+        </div>
+        <div class="card">
+          <h3>Software Architecture</h3>
+          <p>Bridging system design with delivery across full-stack, SA, and QA teams.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="teams">
+      <h2>Cross-Functional Coverage</h2>
+      <div class="roles">
+        <div class="card"><h3>Full-Stack</h3><p>End-to-end feature delivery</p></div>
+        <div class="card"><h3>System Analysis</h3><p>Requirements &amp; design</p></div>
+        <div class="card"><h3>QA</h3><p>Quality &amp; test strategy</p></div>
+      </div>
+    </section>
+
+    <section id="learning">
+      <h2>Currently Learning</h2>
+      <p style="color: var(--text-muted); max-width: 640px;">
+        Tracking the AI-first tooling wave, emerging language and framework trends, and modern
+        cloud architecture patterns — with an eye toward what's practical to bring into production.
+      </p>
+    </section>
+
+    <footer>
+      <span>Built as a static page, deployed with GitHub Pages.</span>
+      <span id="year"></span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('themeToggle');
+      var root = document.documentElement;
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+
+      toggle.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var effectiveCurrent = current || (prefersDark ? 'dark' : 'light');
+        var next = effectiveCurrent === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
