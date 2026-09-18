@@ -1,0 +1,8 @@
+name = "line-member-capture"
+main = "src/index.ts"
+compatibility_date = "2024-09-25"
+# Required for @cloudflare/vitest-pool-workers to run tests
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Non-secret vars only. Secrets (below) are set via `wrangler secret put`.
