@@ -44,7 +44,7 @@ export async function upsertFollowedMember(
 
 export async function markUnfollowed(lineUserId: string, config: SupabaseConfig): Promise<void> {
   const response = await fetch(
-    `${config.supabaseUrl}/rest/v1/line_members?line_user_id=eq.${lineUserId}`,
+    `${config.supabaseUrl}/rest/v1/line_members?line_user_id=eq.${encodeURIComponent(lineUserId)}`,
     {
       method: "PATCH",
       headers: headers(config),

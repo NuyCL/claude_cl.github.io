@@ -40,6 +40,10 @@ export default {
       serviceRoleKey: env.SUPABASE_SERVICE_ROLE_KEY,
     };
 
+    if (!Array.isArray(payload.events)) {
+      return new Response("Malformed body", { status: 400 });
+    }
+
     for (const event of payload.events ?? []) {
       const userId = event.source?.userId;
       if (!userId) continue;

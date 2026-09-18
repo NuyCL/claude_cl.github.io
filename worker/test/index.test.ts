@@ -74,7 +74,7 @@ describe("worker fetch handler", () => {
     });
     const signature = await sign(body, testEnv.LINE_CHANNEL_SECRET);
 
-    const mockFetch = vi.fn(async (url: string) => {
+    const mockFetch = vi.fn(async (url: string, _init?: RequestInit) => {
       if (url.includes("api.line.me")) {
         return new Response("not found", { status: 404 });
       }
