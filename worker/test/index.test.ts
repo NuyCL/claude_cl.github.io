@@ -68,6 +68,39 @@ describe("worker fetch handler", () => {
     expect(supabaseCall).toBeTruthy();
   });
 
+  it("upserts with null profile fields when LINE profile fetch fails", async () => {
+    const body = JSON.stringify({
+      events: [{ type: "follow", source: { userId: "U123" } }],
+    });
+    const signature = await sign(body, testEnv.LINE_CHANNEL_SECRET);
+
+    const mockFetch = vi.fn(async (url: string) => {
+      if (url.includes("api.line.me")) {
+        return new Response("not found", { status: 404 });
+      }
+      return new Response(null, { status: 201 });
+    });
+    vi.stubGlobal("fetch", mockFetch);
+
+    const request = new Request("https://worker.example/line-webhook", {
+      method: "POST",
+      headers: { "x-line-signature": signature },
+      body,
+    });
+
+    const response = await worker.fetch(request, testEnv);
+    expect(response.status).toBe(200);
+
+    const supabaseCall = mockFetch.mock.calls.find((c) =>
+      String(c[0]).includes("test.supabase.co")
+    );
+    expect(supabaseCall).toBeTruthy();
+    const requestBody = JSON.parse((supabaseCall![1] as RequestInit).body as string);
+    expect(requestBody.display_name).toBeNull();
+    expect(requestBody.picture_url).toBeNull();
+    expect(requestBody.line_user_id).toBe("U123");
+  });
+
   it("marks member inactive on unfollow event and returns 200", async () => {
     const body = JSON.stringify({
       events: [{ type: "unfollow", source: { userId: "U123" } }],
